@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">weatherapp</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_location">LocationActivity</string>
+
+
+    <string name="location_choose_title">Get weather by your city, or by your current location</string>
+    <string name="location_choose_by_city">Get weather by city</string>
+
+
+    <string name="button_choose_by_city_name">Search</string>
+    <string name="button_choose_by_current_location">Get weather by current location</string>
+    <string name="title_activity_weather">WeatherActivity</string>
+
+</resources>
