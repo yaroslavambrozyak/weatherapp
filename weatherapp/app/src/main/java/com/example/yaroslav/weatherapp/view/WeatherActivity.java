@@ -18,6 +18,8 @@ public class WeatherActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        WeatherActivityFragment fragment = new WeatherActivityFragment();
+        fragment.setArguments(savedInstanceState);
     }
 
 }

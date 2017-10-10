@@ -15,4 +15,7 @@ public interface OpenWeatherApi {
     @GET("forecast")
     Call<OpenWeather> getWeatherByCityId(@Query("id") int id, @Query("appid") String appid);
 
+    @GET("forecast")
+    Call<OpenWeather> getWeatherByCityName(@Query("q") String cityName, @Query("appid") String appid);
+
 }

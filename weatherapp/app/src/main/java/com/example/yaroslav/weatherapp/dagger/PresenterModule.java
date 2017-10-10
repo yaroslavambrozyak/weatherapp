@@ -18,8 +18,8 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public WeatherPresenter provideWeatherPresenter(){
-        return new WeatherPresenterImpl();
+    public WeatherPresenter provideWeatherPresenter(Application app){
+        return new WeatherPresenterImpl(app);
     }
 
     @Provides

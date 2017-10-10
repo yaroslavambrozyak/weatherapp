@@ -26,4 +26,8 @@ public class LocationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    public void bb(){
+
+    }
+
 }

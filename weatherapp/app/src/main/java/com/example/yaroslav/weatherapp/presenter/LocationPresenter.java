@@ -7,6 +7,6 @@ public interface LocationPresenter {
 
     void setView(LocationView view);
     void searchByCurrentLocation();
-    void searchByCityName();
+    void searchByCityName(String cityName);
 
 }
