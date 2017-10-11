@@ -23,6 +23,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.example.yaroslav.weatherapp.App;
+import com.example.yaroslav.weatherapp.Constants;
 import com.example.yaroslav.weatherapp.R;
 import com.example.yaroslav.weatherapp.presenter.LocationPresenter;
 
@@ -66,10 +67,8 @@ public class LocationActivityFragment extends Fragment implements LocationView{
 
     @OnClick(R.id.button_search_by_city)
     public void onButtonLocationByCityClick() {
-        /*String cityName = textView.getText().toString();
-        presenter.searchByCityName(cityName);*/
-        Intent intent = new Intent(app,WeatherActivity.class);
-        startActivity(intent);
+        String cityName = textView.getText().toString();
+        presenter.searchByCityName(cityName);
     }
 
     @OnClick(R.id.button_search_by_current)
@@ -78,4 +77,10 @@ public class LocationActivityFragment extends Fragment implements LocationView{
     }
 
 
+    @Override
+    public void launchWeatherActivity(String city) {
+        Intent intent = new Intent(getActivity(),WeatherActivity.class);
+        intent.putExtra(Constants.CITY_NAME,city);
+        startActivity(intent);
+    }
 }

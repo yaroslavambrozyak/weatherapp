@@ -11,6 +11,8 @@ public interface WeatherView {
 
     void setCurrentDescription(String description);
 
+    void setCurrentCountry(String country);
+
     void setCurrentTemperature(String temperature);
 
     void setCurrentTemperatureMin(String temperatureMin);

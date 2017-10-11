@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,9 +14,11 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
 import com.example.yaroslav.weatherapp.App;
+import com.example.yaroslav.weatherapp.Constants;
 import com.example.yaroslav.weatherapp.api.OpenWeatherApi;
 import com.example.yaroslav.weatherapp.view.LocationActivityFragment;
 import com.example.yaroslav.weatherapp.view.LocationView;
+import com.example.yaroslav.weatherapp.view.WeatherActivity;
 
 import javax.inject.Inject;
 
@@ -46,7 +49,9 @@ public class LocationPresenterImpl implements LocationPresenter {
 
     @Override
     public void searchByCityName(String cityName) {
-
+        if (cityName!=null && !cityName.isEmpty()){
+            view.launchWeatherActivity(cityName);
+        }
     }
 
 }

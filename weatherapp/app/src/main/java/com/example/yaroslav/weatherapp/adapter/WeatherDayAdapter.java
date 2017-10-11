@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.yaroslav.weatherapp.Constants;
 import com.example.yaroslav.weatherapp.R;
 import com.example.yaroslav.weatherapp.model.WeatherForecast;
 import com.squareup.picasso.Picasso;
@@ -18,11 +19,12 @@ import java.util.List;
 public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.ViewHolder> {
 
     private List<WeatherForecast> data;
+    private ItemClickListener itemClickListener;
 
 
-    public WeatherDayAdapter(List<WeatherForecast> data) {
+    public WeatherDayAdapter(List<WeatherForecast> data,ItemClickListener itemClickListener) {
         this.data = data;
-
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(data.get(position));
+        holder.bind(data.get(position),itemClickListener);
     }
 
     @Override
@@ -58,11 +60,17 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
 
         }
 
-        void bind(WeatherForecast weatherForecast){
+        void bind(final WeatherForecast weatherForecast, final ItemClickListener itemClickListener){
             String iconUrl = "http://openweathermap.org/img/w/" + weatherForecast.getWeather().get(0).getIcon() + ".png";
             Picasso.with(context).load(iconUrl).into(weatherIcon);
             textDescription.setText(weatherForecast.getWeather().get(0).getDescription());
-            textTemperature.setText(String.valueOf(weatherForecast.getMain().getTemp()));
+            textTemperature.setText(weatherForecast.getMain().getTemp()+ Constants.CELSIUS);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onItemClick(weatherForecast);
+                }
+            });
         }
     }
 }

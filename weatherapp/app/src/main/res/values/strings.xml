@@ -4,7 +4,7 @@
     <string name="title_activity_location">LocationActivity</string>
 
 
-    <string name="location_choose_title">Get weather by your city, or by your current location</string>
+    <string name="location_choose_title">Get weather by city, or by current location</string>
     <string name="location_choose_by_city">Get weather by city</string>
 
 

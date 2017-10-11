@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.yaroslav.weatherapp.App;
 import com.example.yaroslav.weatherapp.Constants;
 import com.example.yaroslav.weatherapp.R;
+import com.example.yaroslav.weatherapp.adapter.ItemClickListener;
 import com.example.yaroslav.weatherapp.adapter.WeatherCurrentTime;
 import com.example.yaroslav.weatherapp.adapter.WeatherDayAdapter;
 import com.example.yaroslav.weatherapp.model.WeatherForecast;
@@ -43,6 +44,8 @@ public class WeatherActivityFragment extends Fragment implements WeatherView {
     ImageView weatherIcon;
     @BindView(R.id.text_view_description)
     TextView textDescription;
+    @BindView(R.id.text_view_country)
+    TextView textCountry;
     @BindView(R.id.text_view_temperature)
     TextView textTemperature;
     @BindView(R.id.text_view_temperature_min)
@@ -70,9 +73,6 @@ public class WeatherActivityFragment extends Fragment implements WeatherView {
         super.onCreate(savedInstanceState);
         data = new ArrayList<>();
         datacur = new ArrayList<>();
-        if (savedInstanceState != null) {
-            city = (String) savedInstanceState.get(Constants.CITY_NAME);
-        }
     }
 
     @Override
@@ -80,10 +80,11 @@ public class WeatherActivityFragment extends Fragment implements WeatherView {
                              Bundle savedInstanceState) {
         ((App) getActivity().getApplication()).getNetComponent().inject(this);
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         presenter.setView(this);
+        city = getArguments().getString(Constants.CITY_NAME);
         initRecycler();
-        presenter.loadWeather("London");
+        presenter.loadWeather(city);
         return view;
     }
 
@@ -96,6 +97,11 @@ public class WeatherActivityFragment extends Fragment implements WeatherView {
     @Override
     public void setCurrentDescription(String description) {
         textDescription.setText(description);
+    }
+
+    @Override
+    public void setCurrentCountry(String country) {
+        textCountry.setText(country);
     }
 
     @Override
@@ -135,25 +141,37 @@ public class WeatherActivityFragment extends Fragment implements WeatherView {
 
     @Override
     public void setDayWeatherData(List<WeatherForecast> data) {
+        this.data.clear();
         this.data.addAll(data);
         weatherDay.getAdapter().notifyDataSetChanged();
     }
 
     @Override
     public void setTimeWeatherData(List<WeatherForecast> data) {
+        datacur.clear();
         datacur.addAll(data);
         weatherTime.getAdapter().notifyDataSetChanged();
     }
 
-    private void initRecycler(){
+    private void initRecycler() {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity());
         weatherDay.setLayoutManager(manager);
-        RecyclerView.Adapter adapter = new WeatherDayAdapter(data);
+        RecyclerView.Adapter adapter = new WeatherDayAdapter(data, new ItemClickListener() {
+            @Override
+            public void onItemClick(WeatherForecast weatherForecast) {
+                presenter.changeDayWeather(weatherForecast);
+            }
+        });
         weatherDay.setAdapter(adapter);
 
-        RecyclerView.LayoutManager hmanager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager hmanager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         weatherTime.setLayoutManager(hmanager);
-        RecyclerView.Adapter hadapter = new WeatherCurrentTime(datacur);
+        RecyclerView.Adapter hadapter = new WeatherCurrentTime(datacur, new ItemClickListener() {
+            @Override
+            public void onItemClick(WeatherForecast weatherForecast) {
+                presenter.changeWeather(weatherForecast);
+            }
+        });
         weatherTime.setAdapter(hadapter);
     }
 }
