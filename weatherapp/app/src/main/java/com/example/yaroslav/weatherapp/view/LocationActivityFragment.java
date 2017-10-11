@@ -66,8 +66,10 @@ public class LocationActivityFragment extends Fragment implements LocationView{
 
     @OnClick(R.id.button_search_by_city)
     public void onButtonLocationByCityClick() {
-        String cityName = textView.getText().toString();
-        presenter.searchByCityName(cityName);
+        /*String cityName = textView.getText().toString();
+        presenter.searchByCityName(cityName);*/
+        Intent intent = new Intent(app,WeatherActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.button_search_by_current)

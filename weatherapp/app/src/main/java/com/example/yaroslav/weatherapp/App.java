@@ -17,7 +17,7 @@ public class App extends Application{
         super.onCreate();
         netComponent = DaggerNetComponent.builder()
                 .appModule(new AppModule(this))
-                .netModule(new NetModule("http://www.jsonplaceholder.typicode.com/"))
+                .netModule(new NetModule("http://api.openweathermap.org/data/2.5/"))
                 .presenterModule(new PresenterModule())
                 .build();
 
