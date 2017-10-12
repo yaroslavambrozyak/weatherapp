@@ -63,6 +63,24 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     }
 
     @Override
+    public void loadWeather(double lon, double lat) {
+        api.getWeatherByLonAndLat(lat, lon, Constants.API_KEY, "metric").enqueue(new Callback<OpenWeather>() {
+            @Override
+            public void onResponse(Call<OpenWeather> call, Response<OpenWeather> response) {
+                openWeather = response.body();
+                setCurrentWeatherData(openWeather.getWeatherForecastList().get(0));
+                setDayWeather(openWeather);
+                setTimeWeather(openWeather);
+            }
+
+            @Override
+            public void onFailure(Call<OpenWeather> call, Throwable t) {
+                Log.d("TAG", "err");
+            }
+        });
+    }
+
+    @Override
     public void changeWeather(WeatherForecast weatherForecast) {
         setCurrentWeatherData(weatherForecast);
     }
@@ -70,20 +88,23 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     @Override
     public void changeDayWeather(WeatherForecast weatherForecast) {
         setCurrentWeatherData(weatherForecast);
-        currentDate = weatherForecast.getDate().substring(0,11);
+        currentDate = weatherForecast.getDate().substring(0, 11);
         setTimeWeather(openWeather);
     }
 
     private void setCurrentWeatherData(WeatherForecast currentWeather) {
-        view.setCurrentCountry(openWeather.getCity().getName()+", "+openWeather.getCity().getCountry());
-        view.setCurrentTemperature(String.valueOf(currentWeather.getMain().getTemp())+Constants.CELSIUS);
-        view.setCurrentTemperatureMin(String.valueOf(currentWeather.getMain().getTempMin())+Constants.CELSIUS);
-        view.setCurrentTemperatureMax(String.valueOf(currentWeather.getMain().getTempMax())+Constants.CELSIUS);
+        view.setCurrentCountry(openWeather.getCity().getName() + ", " + openWeather.getCity().getCountry());
+        view.setCurrentTemperature(String.valueOf(currentWeather.getMain().getTemp()) + Constants.CELSIUS);
+        view.setCurrentTemperatureMin(String.valueOf(currentWeather.getMain().getTempMin()) + Constants.CELSIUS);
+        view.setCurrentTemperatureMax(String.valueOf(currentWeather.getMain().getTempMax()) + Constants.CELSIUS);
         view.setCurrentDescription(currentWeather.getWeather().get(0).getDescription());
         view.setCurrentWeatherIcon(currentWeather.getWeather().get(0).getIcon());
-        view.setCurrentClouds(String.valueOf(currentWeather.getClouds().getAll())+Constants.PERCENT);
-        view.setCurrentWindSpeed(currentWeather.getWind().getSpeed()+Constants.METER_PER_SEC);
-        view.setCurrentRain(currentWeather.getRain().get_3h()+Constants.MIL);
+        view.setCurrentClouds(String.valueOf(currentWeather.getClouds().getAll()) + Constants.PERCENT);
+        view.setCurrentWindSpeed(currentWeather.getWind().getSpeed() + Constants.METER_PER_SEC);
+        if (currentWeather.getRain() != null)
+            view.setCurrentRain(currentWeather.getRain().get_3h() + Constants.MIL);
+        else if (currentWeather.getSnow() != null)
+            view.setCurrentRain(currentWeather.getSnow().get_3h() + Constants.MIL);
         view.setCurrentData(currentWeather.getDate());
         currentTime = currentWeather.getDate().substring(11);
         currentDate = currentWeather.getDate().substring(0, 11);

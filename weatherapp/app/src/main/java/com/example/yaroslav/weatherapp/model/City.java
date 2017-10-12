@@ -7,6 +7,7 @@ public class City {
     private String name;
     private Coordinates coord;
     private String country;
+    private double population;
 
     public int getId() {
         return id;
@@ -38,5 +39,13 @@ public class City {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public double getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(double population) {
+        this.population = population;
     }
 }

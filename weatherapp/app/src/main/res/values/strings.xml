@@ -10,8 +10,9 @@
 
     <string name="button_choose_by_city_name">Search</string>
     <string name="button_choose_by_current_location">Get weather by current location</string>
-    <string name="title_activity_weather">WeatherActivity</string>
+    <string name="title_activity_weather">Weather</string>
     <string name="text_view_min_temp">Min:</string>
     <string name="text_view_max_temp">Max:</string>
+    <string name="edit_text_city_hint">Example: London</string>
 
 </resources>

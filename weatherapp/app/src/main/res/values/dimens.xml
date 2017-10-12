@@ -7,4 +7,6 @@
     <dimen name="card_main_description_text_size">8pt</dimen>
     <dimen name="current_card_margin_top">8dp</dimen>
     <dimen name="day_card_margin_top">8dp</dimen>
+    <dimen name="card_day_icon_width">35dp</dimen>
+    <dimen name="card_day_icon_height">35dp</dimen>
 </resources>

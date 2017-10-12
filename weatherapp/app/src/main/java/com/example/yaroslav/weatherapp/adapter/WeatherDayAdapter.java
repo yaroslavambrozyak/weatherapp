@@ -48,6 +48,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
         ImageView weatherIcon;
         TextView textDescription;
         TextView textTemperature;
+        TextView textDate;
 
         Context context;
 
@@ -56,6 +57,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
             weatherIcon = (ImageView) itemView.findViewById(R.id.weather_card_icon);
             textDescription = (TextView) itemView.findViewById(R.id.weather_card_description);
             textTemperature = (TextView) itemView.findViewById(R.id.weather_card_temperature);
+            textDate = (TextView) itemView.findViewById(R.id.weather_card_date);
             this.context = context;
 
         }
@@ -65,6 +67,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
             Picasso.with(context).load(iconUrl).into(weatherIcon);
             textDescription.setText(weatherForecast.getWeather().get(0).getDescription());
             textTemperature.setText(weatherForecast.getMain().getTemp()+ Constants.CELSIUS);
+            textDate.setText(weatherForecast.getDate().substring(0,11));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

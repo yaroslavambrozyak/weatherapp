@@ -28,7 +28,8 @@
             android:name=".view.WeatherActivity"
             android:label="@string/title_activity_weather"
             android:parentActivityName=".view.LocationActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.yaroslav.weatherapp.view.LocationActivity" />

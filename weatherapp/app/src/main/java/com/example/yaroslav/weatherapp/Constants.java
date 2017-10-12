@@ -12,4 +12,9 @@ public class Constants {
     public static final String METER_PER_SEC = "m/sec";
     public static final String MIL = "mm";
 
+    public static final String LONGITUDE = "lon";
+    public static final String LATITUDE = "lat";
+
+    public static final String BY_CITY = "byCity";
+
 }

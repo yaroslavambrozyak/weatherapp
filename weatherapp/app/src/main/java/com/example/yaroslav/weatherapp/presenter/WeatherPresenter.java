@@ -7,6 +7,7 @@ import com.example.yaroslav.weatherapp.view.WeatherView;
 public interface WeatherPresenter {
     void setView(WeatherView view);
     void loadWeather(String city);
+    void loadWeather(double lon, double lat);
     void changeWeather(WeatherForecast weatherForecast);
     void changeDayWeather(WeatherForecast weatherForecast);
 }

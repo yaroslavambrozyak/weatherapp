@@ -43,8 +43,8 @@ public class LocationPresenterImpl implements LocationPresenter {
     }
 
     @Override
-    public void searchByCurrentLocation() {
-
+    public void searchByCurrentLocation(double lon, double lat) {
+        view.launchWeatherActivity(lon,lat);
     }
 
     @Override
